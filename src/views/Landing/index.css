@@ -1,0 +1,16 @@
+#landing {
+    background: url('../../images/landing/accueil-hym-1.svg');
+    background-size: cover;
+    background-position-y: bottom;
+    height: 100%;
+}
+
+.modal-dialog {
+    position: absolute;
+    bottom: 0%;
+}
+
+#Calque_1 {
+    height: 30%;
+    margin-bottom: 50%;
+}

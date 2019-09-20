@@ -1,6 +1,15 @@
+html, #root, #app, #root>div {
+  height: 100%;
+  font-family: 'Open Sans', sans-serif;
+  -webkit-overflow-scrolling: touch;
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+  height: 100%;
+  width: 100%;
+  position: relative;
+  font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -10,4 +19,67 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+.fade-enter {
+  opacity: 0.01;
+}
+
+.fade-enter.fade-enter-active {
+  opacity: 1;
+  transition: opacity 300ms ease-in;
+}
+
+.fade-exit {
+  opacity: 1;
+}
+
+.fade-exit.fade-exit-active {
+  opacity: 0.01;
+  transition: opacity 300ms ease-in;
+}
+
+#avatarBg {
+  height: 40vh;
+  background-color: red;
+}
+
+#userBar {
+  background: url('./images/bg-bar.svg');
+  background-size: cover;
+  background-position: bottom; 
+  height: 10%;
+  width: 100%;
+  font-size: 0.8em;
+}
+
+#halfBackground {
+  color: #5C747B;
+  background: url('./images/bg-bigbar.svg');
+  background-size: 100% 19vh;
+  background-repeat: no-repeat;
+  height: 40%;
+  width: 100%;
+}
+
+.sliderItem:first-of-type {
+  margin-left: 5%;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+#networkError svg {
+  color: #cbebf3;
+  width: 50vw;
+  height: 50vw;
+}
+
+img {
+  object-fit: cover;
+}
+
+.dislike-svg {
+  transform: scale(1, -1);
 }

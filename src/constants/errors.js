@@ -1,0 +1,1 @@
+export const NETWORK_ERRORS = "Oups ! Un problème est survenu, réessaie plus tard";

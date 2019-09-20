@@ -1,0 +1,72 @@
+.dot {
+    height: 2vw;
+    width: 2vw;
+    background-color: #E5E5E5;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.active-dot {
+    height: 2vw;
+    width: 2vw;
+    background-color: #0052A0;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.boarding-fade-in {
+    transition: opacity 3s;
+    opacity: 1;
+}
+
+.boarding-fade-in-hide {
+    opacity: 0;
+    pointer-events:none;
+}
+
+#user-avatar {
+    border-radius: 50%;
+    background-color: white;
+}
+
+.camera {
+    position: relative;
+    top: -70%;
+    right: -70%;
+}
+
+.camera>div {
+    background-color: #E5E5E5;
+    display: inline-block;
+    padding-left: 8%;
+    width: 34%;
+    padding-bottom: 4%;
+    border-radius: 50%;
+    border: 1px solid white;
+}
+
+.bottomModal {
+    top: auto;
+    right: auto;
+    left: auto;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    margin: 0;
+}
+
+.bottomModal .modal-content {
+    border: none;
+    border-radius: 0;
+}
+
+.avatar {
+    border: 2px solid white;
+    border-radius: 5px;
+}
+
+.avatar:hover {
+    border: 2px solid #6EC8DE;
+    border-radius: 5px;
+}
+    

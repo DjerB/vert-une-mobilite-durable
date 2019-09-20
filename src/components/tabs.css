@@ -1,0 +1,18 @@
+#challengesTabs {
+    border: 1px solid #dee2e6;
+    border-radius: 20px;
+    box-shadow: 1px 1px 2px 0px #e2e2e2;
+}
+
+#challengesTabs>li>a {
+    color: black;
+}
+
+#challengesTabs>li>a:hover {
+    color: #2D70B0;
+}
+
+#challengesTabs>li>a:active {
+    color: #2D70B0;
+    border-bottom: 1px solid #2D70B0;
+}

@@ -1,0 +1,10 @@
+export const LANDING = '/';
+export const ON_BOARDING = '/onboarding';
+export const NEWSFEED = '/accueil';
+export const CHALLENGES = '/challenges';
+export const CHALLENGE = '/challenges/:challengeId';
+export const SENSIBILISATION = '/challenges/:challengeId/quiz'
+export const SOCIAL = '/social';
+export const GAZIER = '/social/:userId';
+export const RANKING = '/classement';
+export const PROFILE = '/profil';
