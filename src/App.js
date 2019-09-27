@@ -20,6 +20,17 @@ import SocialView from './views/Social';
 import RankingView from './views/Ranking';
 import ProfileView from './views/Profile';
 
+
+/**
+ * App is the top level component of the app.
+ * It provides the overall stucture:
+ *  - A Switch from react-router-dom ensures the routing efficiency
+ *  - All the routes are rendered according to the current location e.g / --> landing
+ *  - Custom routes are used depending on the props and overlays they need to render
+ *  - A default route is placed inside the Switch and redirects every unknown urls to the landing page
+ *  - The Switch is implicitly placed in HOC OktaAuthComponent whose role is to distribute the user proporties
+ *  - Finally, the Redux Provider HOC provides the whole app with global state attributes
+ */
 const App = () => (
     <div id="app">
         <Provider store={Store}>

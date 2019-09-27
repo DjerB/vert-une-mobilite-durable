@@ -76,7 +76,7 @@ const OnBoardingPage = withRouter(class OnBoarding extends Component {
     componentDidMount() {
         const user = this.props.getIdToken();
         this.setState({
-            gaiaId: "claireGaiaId",//user ? user.gaiaId : "",
+            gaiaId: user ? user.gaiaId : "",
             firstName: user ? user.prenom : "",
             name: user ? user.nom : ""
         }, async () => {
@@ -104,7 +104,6 @@ const OnBoardingPage = withRouter(class OnBoarding extends Component {
                 this.setState({ loading: false });
             });
         })
-        console.log(user);
     }
 
     onPageChange() {

@@ -177,6 +177,8 @@ class Profile extends Component {
     async loadEventsAvatars({ data: news }) {
         let apiCalls = [];
 
+        news = news.slice(0, 30);
+
         news.map(({ avatar, userId }) => {
             if (avatar === "custom") {
                 apiCalls.push(getAsset("avatars_" + userId))

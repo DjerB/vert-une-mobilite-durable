@@ -1,13 +1,10 @@
 
 import React, { Component } from 'react';
 import { withRouter, Switch } from 'react-router-dom';
-import axios from 'axios';
 import { connect } from 'react-redux';
 
 import Spinner from '../components/spinner';
 import { addToLocalStorage } from '../utils/localStorage';
-
-import { ON_BOARDING, NEWSFEED } from '../constants/routes';
 
 const DOMAIN = "vertunemobilitedurable";
 const REGION = "eu-central-1";
@@ -15,6 +12,7 @@ const RESPONSE_TYPE = "token";
 const CLIENT_ID = "74jqhkon51fhqcij088pashkgu";
 const REDIRECT_URI = "https://vertunemobilitedurable.fr/onboarding";
 
+//  The id token is sent by Okta as a jwt token so decryption is needed
 function parseJwt(token) {
   var base64Url = token.split('.')[1];
   var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
@@ -27,7 +25,6 @@ function parseJwt(token) {
 
 const OktaAuthComponent = withRouter(class OktaAuth extends Component {
   constructor(props) {
-    console.log(props);
     super(props);
     const userString = localStorage.getItem("VMD_USER");
     this.state = {
@@ -41,22 +38,12 @@ const OktaAuthComponent = withRouter(class OktaAuth extends Component {
     this.getIdToken = this.getIdToken.bind(this);
   }
 
-  componentDidMount() {
-    //this.checkAuthentication();
-  }
-
-  componentDidUpdate() {
-    //this.checkAuthentication();
-  }
-
   async login() {
-    // Redirect to '/' after login
-    //this.props.auth.login(ON_BOARDING);
     window.location.href = `https://${DOMAIN}.auth.${REGION}.amazoncognito.com/login?response_type=${RESPONSE_TYPE}&client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}`;
   }
 
   logout(){
-    window.location.href = `https://${DOMAIN}.auth.${REGION}.amazoncognito.com/logout?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}`;
+    window.location.href = `https://${DOMAIN}.auth.${REGION}.amazoncognito.com/logout?response_type=${RESPONSE_TYPE}&client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}`;
   }
 
   getIdToken() {
@@ -69,11 +56,13 @@ const OktaAuthComponent = withRouter(class OktaAuth extends Component {
       const idToken = hash.split("id_token=")[1].split("&")[0];
       const decodedJWT = parseJwt(idToken);
       console.log(decodedJWT);
-      user.gaiaId = "claireGaiaId";//decodedJWT.identities[0].userId;
+      user.gaiaId = decodedJWT.identities[0].userId;//"claireGaiaId";
       user.nom = decodedJWT.family_name;
       user.prenom = decodedJWT.given_name;
 
       this.setState({ user, isAuthenticated: true });
+
+      addToLocalStorage("VMD_USER", JSON.stringify(user));
 
       const userAction = { type: "UPDATE_USER", value: {} };
       this.props.dispatch(userAction);
@@ -82,39 +71,6 @@ const OktaAuthComponent = withRouter(class OktaAuth extends Component {
       console.log(e);
     }
     return null;
-    /*this.setState({ 
-      loading: true 
-    }, () => {
-      const cognitoUser = this.state.userPool.getCurrentUser();
-      console.log(cognitoUser);
-      let isAuthenticated = false;
-      if (cognitoUser) {
-        cognitoUser.getSession((err, session) => {
-          if (err) {
-            console.log(err);
-          } else if (!session.isValid()) {
-            console.log("Invalid session.");
-          } else {
-            isAuthenticated = true;
-            console.log("IdToken: " + session.getIdToken().getJwtToken());
-          }
-        });
-      }
-      this.setState({ loading: false, isAuthenticated, user: cognitoUser });
-    });*/
-    
-    /*const isAuthenticated = await this.props.auth.isAuthenticated();
-    const user = await this.props.auth.getUser();
-    console.log(user)
-    console.log(this.props)
-    if (isAuthenticated !== this.state.isAuthenticated) {
-      const user = await this.props.auth.getUser();
-      console.log(user)
-      //addToLocalStorage("hymIsAuthenticated", isAuthenticated);
-      //addToLocalStorage("hymUser", user);
-      if (user) addToLocalStorage("hymGaiaId", user.gaiaId);
-      this.setState({ loading: false, isAuthenticated, user });
-    }*/
   }
 
   render() {
