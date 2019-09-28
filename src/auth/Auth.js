@@ -44,6 +44,13 @@ const OktaAuthComponent = withRouter(class OktaAuth extends Component {
 
   logout(){
     window.location.href = `https://${DOMAIN}.auth.${REGION}.amazoncognito.com/logout?response_type=${RESPONSE_TYPE}&client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}`;
+    const avatarAction = { type: "UPDATE_AVATAR", value: null };
+    this.props.dispatch(avatarAction);
+    const userAction = { type: "UPDATE_USER", value: {} };
+    this.props.dispatch(userAction);
+    localStorage.removeItem("hymAvatar");
+    localStorage.removeItem("hymPoints");
+    localStorage.removeItem("VMDUser");
   }
 
   getIdToken() {
@@ -83,7 +90,8 @@ const OktaAuthComponent = withRouter(class OktaAuth extends Component {
 
 const mapStateToProps = state => {
   return {
-    reducedUser: state.reducedUser
+    reducedUser: state.reducedUser,
+    reducedAvatar: state.reducedAvatar,
   }
 };
 

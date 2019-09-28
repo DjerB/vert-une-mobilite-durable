@@ -78,7 +78,8 @@ const OnBoardingPage = withRouter(class OnBoarding extends Component {
         this.setState({
             gaiaId: user ? user.gaiaId : "",
             firstName: user ? user.prenom : "",
-            name: user ? user.nom : ""
+            name: user ? user.nom : "",
+            isAuthenticated: this.props.isAuthenticated
         }, async () => {
             await getUser(this.state.gaiaId)
             .then(async ({ data }) => {
@@ -94,6 +95,7 @@ const OnBoardingPage = withRouter(class OnBoarding extends Component {
             .then(({ user, avatar }) => {
                 addToLocalStorage("hymAvatar", avatar);
                 addToLocalStorage("hymPoints", user.points);
+                addToLocalStorage("VMDUser", JSON.stringify(user));
                 const avatarAction = { type: "UPDATE_AVATAR", value: avatar };
                 this.props.dispatch(avatarAction);
                 const userAction = { type: "UPDATE_USER", value: user };
@@ -281,9 +283,9 @@ const OnBoardingPage = withRouter(class OnBoarding extends Component {
     render() {
         const { activePage, nbOfPages, isAuthenticated, showAvatarModal, loading } = this.state;
         const buttonText = nbOfPages - 1 === activePage ? "C'est parti !" : <span>Suivant <RightArrow className="ml-2" /></span>;
-        /*if (!this.props.user) {
-            //return <Redirect to={LANDING} />;
-        }*/
+        if (!this.props.user) {
+            return <Redirect to={LANDING} />;
+        }
         return (
             loading ?
             <Spinner />
