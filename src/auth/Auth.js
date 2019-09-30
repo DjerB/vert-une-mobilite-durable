@@ -53,12 +53,12 @@ const OktaAuthComponent = withRouter(class OktaAuth extends Component {
     localStorage.removeItem("VMDUser");
   }
 
-  getIdToken() {
+  getIdToken(hash) {
     let user = {};
     console.log(this.props);
-    let hash = null;
     try {
-      hash = this.props.history.location.hash;
+
+      console.log(hash)
 
       const idToken = hash.split("id_token=")[1].split("&")[0];
       const decodedJWT = parseJwt(idToken);

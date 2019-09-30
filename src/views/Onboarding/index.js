@@ -74,7 +74,7 @@ const OnBoardingPage = withRouter(class OnBoarding extends Component {
     }
 
     componentDidMount() {
-        const user = this.props.getIdToken();
+        const user = this.props.getIdToken(this.props.location.hash);
         this.setState({
             gaiaId: user ? user.gaiaId : "",
             firstName: user ? user.prenom : "",

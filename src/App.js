@@ -51,7 +51,7 @@ const App = () => (
     </div>
 );
 
-const NotFoundRedirect = () => <Redirect to='/' />
+const NotFoundRedirect = () => <Redirect to={ROUTES.LANDING} />
 
 const CustomRoute = ({ component: Component, passedProps, login, getIdToken, ...rest }) => (
     <Route {...rest} render={(props) => (
