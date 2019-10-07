@@ -11,8 +11,6 @@ import { getEventsForUsers } from '../../api/events';
 import { getAsset } from '../../api/assets';
 import { arrayBufferToBase64 } from '../../utils/image';
 import { getAvatar } from '../../utils/avatar';
-
-import { NEWS_TEST } from '../../constants/test'; 
 import { CHALLENGES } from '../../constants/routes';
 
 const buttonStyle = {
@@ -25,7 +23,6 @@ const buttonStyle = {
 
 const NewsFeed  = withRouter(class NewsFeedBase extends Component {
     constructor(props) {
-        console.log(props);
         super(props);
         this.state = {
             name: "",
@@ -48,7 +45,6 @@ const NewsFeed  = withRouter(class NewsFeedBase extends Component {
     async loadUser() {
         await getUser(this.state.userId)
             .then((res) => {
-                console.log(res);
                 const usersIds = res.data.amis.concat([this.state.userId]);
                 this.setState({
                     ...res.data,
@@ -62,7 +58,6 @@ const NewsFeed  = withRouter(class NewsFeedBase extends Component {
 
     async loadEvents() {
         const { usersIds } = this.state;
-        console.log(usersIds)
         await getEventsForUsers(usersIds)
             .then(this.loadAvatars)
             .catch(() => this.setState({ loading: false }))
@@ -81,8 +76,7 @@ const NewsFeed  = withRouter(class NewsFeedBase extends Component {
             } else {
                 apiCalls.push(null);
             }
-        })
-        console.log(apiCalls)
+        });
 
         await axios.all(
             apiCalls
@@ -104,7 +98,6 @@ const NewsFeed  = withRouter(class NewsFeedBase extends Component {
 
     render() {
         const { news, loading, userId } = this.state;
-        console.log(news)
         return (
             <Fragment>
                 <div className="d-flex flex-column align-items-center justify-content-around overflow-auto" style={{ color: "#5C747B" }}>

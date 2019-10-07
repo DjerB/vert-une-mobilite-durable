@@ -20,7 +20,6 @@ const MENU = [
 class Navigation extends Component {
   constructor(props) {
     super(props);
-    console.log(props);
     this.state= {
       //prevScrollpos: window.pageYOffset,
       visible: true,
@@ -31,7 +30,8 @@ class Navigation extends Component {
     this.handlePageChange = this.handlePageChange.bind(this);
   }
 
-  /*handleScroll() {
+  /* The following function keeps track of the scrolling position that is used to display/hide the navbar
+  handleScroll() {
     const { prevScrollpos } = this.state;
 
     const currentScrollPos = window.pageYOffset;

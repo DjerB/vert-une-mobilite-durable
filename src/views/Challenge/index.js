@@ -62,6 +62,7 @@ class Challenge extends Component {
         this.loadEvidences = this.loadEvidences.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.uploadEvidence = this.uploadEvidence.bind(this);
+        this.addImageToEvidences = this.addImageToEvidences.bind(this);
     }
 
     componentDidMount() {
@@ -137,7 +138,6 @@ class Challenge extends Component {
 
     loadEvidences() {
         const { preuves } = this.state;
-        console.log(preuves)
         let evidences = [];
         let evidencesCalls = [];
         let avatarsCalls = [];
@@ -154,7 +154,7 @@ class Challenge extends Component {
             for (let i = 0; i < offset; i++) {
                 evidences.push({
                     image: "data:" + arr[i].data.ContentType + ";base64," + arrayBufferToBase64(arr[i].data.Body.data),
-                    avatar: preuves[i].avatar === "custom" ? "data:" + arr[i + offset].data.ContentType + ";base64," + arrayBufferToBase64(arr[i + offset].data.Body.data) : getAvatar(preuves[i].avatar),
+                    avatar: preuves[i].avatar.includes("avatar") ? "data:" + arr[i + offset].data.ContentType + ";base64," + arrayBufferToBase64(arr[i + offset].data.Body.data) : getAvatar(preuves[i].avatar),
                     prenom: preuves[i].prenom
                 });
             }
@@ -241,12 +241,22 @@ class Challenge extends Component {
                             engaged: false,
                             showBravoModal: false,
                             showConfirmationModal: true
-                        }, this.loadChallenge);
+                        }, () => this.addImageToEvidences(uri));
                     })
                     .catch((err) => console.log(err));
             },
             'base64'
         );
+    }
+
+    addImageToEvidences(file) {
+        const { evidences } = this.state;
+        evidences.push({
+            avatar: this.props.reducedAvatar ? this.props.reducedAvatar : localStorage.getItem('hymAvatar'),
+            prenom: this.props.reducedUser.prenom,
+            image: file
+        });
+        this.setState({ evidences });
     }
 
     render() {
@@ -405,7 +415,8 @@ class Media extends Component {
 
 const mapStateToProps = state => {
     return {
-      reducedUser: state.reducedUser
+      reducedUser: state.reducedUser,
+      reducedAvatar: state.reducedAvatar
     }
 }
 

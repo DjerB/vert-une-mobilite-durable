@@ -46,7 +46,6 @@ const getBase64 = (file) => {
 
 const OnBoardingPage = withRouter(class OnBoarding extends Component {
     constructor(props) {
-        console.log(props);
         super(props);
         this.state = {
             isAuthenticated: props.isAuthenticated,
@@ -93,9 +92,10 @@ const OnBoardingPage = withRouter(class OnBoarding extends Component {
                 return { user: data, avatar };
             })
             .then(({ user, avatar }) => {
+                // Add all the user date to the local storage and global reducer
                 addToLocalStorage("hymAvatar", avatar);
                 addToLocalStorage("hymPoints", user.points);
-                addToLocalStorage("VMDUser", JSON.stringify(user));
+                addToLocalStorage("VMDUser", JSON.stringify(user)); // Need to stringify the JSON before storing it
                 const avatarAction = { type: "UPDATE_AVATAR", value: avatar };
                 this.props.dispatch(avatarAction);
                 const userAction = { type: "UPDATE_USER", value: user };
@@ -133,7 +133,6 @@ const OnBoardingPage = withRouter(class OnBoarding extends Component {
 
     loadAvatar(event) {
         const file = event.target.files[0];
-        console.log(file)
         if (file) {
             var reader = new FileReader();
             
@@ -155,7 +154,6 @@ const OnBoardingPage = withRouter(class OnBoarding extends Component {
     }
 
     loadLocalAvatar(name, avatar) {
-        console.log(avatar)
         addToLocalStorage("hymAvatar", avatar);
         const avatarAction = { type: "UPDATE_AVATAR", value: avatar };
         this.props.dispatch(avatarAction);

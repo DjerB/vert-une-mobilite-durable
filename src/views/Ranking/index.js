@@ -17,7 +17,7 @@ import { getAvatar } from '../../utils/avatar';
 const TABS = [
     "Général",
     "Ma région",
-    "Mes amis"
+    "Mes amis/gaziers"
 ];
 
 class Ranking extends Component {
@@ -49,6 +49,8 @@ class Ranking extends Component {
             this.props.dispatch(action);
             const users = data.sort((user1, user2) => (user2.points > user1.points) ? 1 : ((user1.points > user2.points) ? -1 : 0));
             let regions = [];
+
+            // Going through each user and add his points to his region
             REGIONS.forEach(({ value, label }) => regions.push({ value, label, points: 0, nbOfMembers: 0 }));
             users.forEach(({ region, points }) => {
                 if (points > 0) {
@@ -56,6 +58,8 @@ class Ranking extends Component {
                     regions.find(({ value }) => value === region).nbOfMembers += 1;
                 }
             });
+
+            // Compute average points for each region (only use with more than 0 points are counted)
             regions.forEach((region) => region.points = region.points > 0 ? Math.ceil(region.points / region.nbOfMembers) : region.points);
             const region = users.find(({ userId }) => this.state.userId === userId).region;
             regions = regions.sort((region1, region2) => (region2.points > region1.points) ? 1 : ((region1.points > region2.points) ? -1 : 0));
@@ -66,7 +70,6 @@ class Ranking extends Component {
                 regionIdx,
                 friendsIds: arr[1].data.amis,
             }, this.loadAvatars);
-            console.log(data)
         })
         .catch(errorMessage => {
             this.setState({
@@ -87,8 +90,7 @@ class Ranking extends Component {
             } else {
                 apiCalls.push(null);
             }
-        })
-        console.log(apiCalls)
+        });
 
         await axios.all(
             apiCalls
@@ -119,8 +121,6 @@ class Ranking extends Component {
 
     render() {
         const { users, regions, userId, regionIdx, friendsIds, activeTab, loading, expand, errorMessage } = this.state;
-        console.log(this.state);
-        console.log(regions);
         return (
             loading ?
             <Spinner /> :
@@ -175,7 +175,7 @@ class Ranking extends Component {
                 </Fragment>
                     :
                 <Fragment>
-                    <ContainerTab title={"Classement de mes amis"}> 
+                    <ContainerTab title={"Classement de mes amis/gaziers"}> 
                         <RankingList users={users.filter(({ userId: id }) => friendsIds.includes(id) || userId === id)} topLim={3} bottomLim={3} userId={userId} expand={expand} onExpand={() => this.setState({ expand: true })} />
                     </ContainerTab>
                 </Fragment>

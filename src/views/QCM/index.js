@@ -135,21 +135,17 @@ const QCM = withRouter(class QCMBase extends Component {
                     }
                 });
                 const earnedPoints = pointsBonus * correctChoices;
-                console.log("pointsBonus", pointsBonus)
-                console.log("earnedPoints", earnedPoints)
-                console.log("correctAnswers", correctAnswers)
-                console.log("correctChoices", correctChoices)
-                /*addChallengeToUser(userId, challengeId, titre, defisEnCours, defisRealises, pointsDebut, pointsFin, earnedPoints, [badgeId], debut ? debut : null, medias, nom, prenom, region, avatar)
+                addChallengeToUser(userId, challengeId, titre, defisEnCours, defisRealises, pointsDebut, pointsFin, earnedPoints, [badgeId], debut ? debut : null, medias, nom, prenom, region, avatar)
                     .then(() => this.setState({ 
                         showBravoModal: !this.state.showBravoModal, 
                         nbOfCorrectChoices: correctAnswers, 
                         earnedPoints,
                         submitted: true
                     }))
-                    .catch(error => console.log(error));*/
-                this.setState({
-                    submitted: true
-                })
+                    .catch(error => {
+                        console.log(error);
+                        this.setState({ submitted: true });    
+                    });
             } catch(e) {
                 console.log(e);
             }
@@ -280,18 +276,18 @@ const Choice = ({ choice, index, selected, correct, onSelection }) => (
     </div>
     :
     <div className="d-flex align-items-center" style={choiceStyle}>
-        <div style={{ ...squareStyle, backgroundColor: selected ? (correct ? "#8AC13D" : "#E71823") : (correct ? "#8AC13D" : "#E5E5E5") }} className="d-flex justify-content-center align-items-center">
+        <div style={{ ...squareStyle, backgroundColor: selected ? (correct ? "#0052A0" : "#E71823") : (correct ? "#8AC13D" : "#E5E5E5") }} className="d-flex justify-content-center align-items-center">
             <span style={{ color: selected || correct ? "white" : "#5C747B" }}>{index + 1}</span>
         </div>
-        <div style={{ width: selected || correct ? "75vw" : "80vw", marginLeft: "5vw", marginRight: selected || correct ? "5vw" : "", color: selected ? (correct ? "#8AC13D" : "#E71823") : (correct ? "#8AC13D" : "#5C747B") }} className={`d-flex align-items-center justify-content-${selected || correct ? "between" : "start"}`}>
+        <div style={{ width: selected || correct ? "75vw" : "80vw", marginLeft: "5vw", marginRight: selected || correct ? "5vw" : "", color: selected ? (correct ? "#0052A0" : "#E71823") : (correct ? "#8AC13D" : "#5C747B") }} className={`d-flex align-items-center justify-content-${selected || correct ? "between" : "start"}`}>
             <span>{choice}</span>
-            <div className="col-1">{selected ? (correct ? <CheckIcon /> : <CrossIcon />) : (correct ? <CheckIcon /> : null)}</div>
+            <div className="col-1">{selected ? (correct ? <CheckIcon color={"#0052A0"} /> : <CrossIcon />) : (correct ? <CheckIcon /> : null)}</div>
         </div>
     </div>
 );
 
-const CheckIcon = () => (
-    <IconContext.Provider value={{ color: "#8AC13D" }}>
+const CheckIcon = (color="#8AC13D") => (
+    <IconContext.Provider value={{ color }}>
         <FaCheck />
     </IconContext.Provider>
 );

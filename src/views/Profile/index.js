@@ -160,10 +160,13 @@ class Profile extends Component {
         }));
     }
 
+    // Load only events regarding the profile if profile is not the user (ie is a friend)
     async loadEvents() {
-        const { friends, profileId } = this.state;
+        const { friends, profileId, isMe } = this.state;
         let usersIds = [profileId];
-        friends.map(({ userId }) => usersIds.push(userId));
+        if (isMe) { 
+            friends.map(({ userId }) => usersIds.push(userId));
+        }
         console.log(usersIds)
         await getEventsForUsers(usersIds)
             .then(this.loadEventsAvatars)

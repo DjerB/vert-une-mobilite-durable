@@ -44,7 +44,6 @@ class Social extends Component {
      * Load the user data and all users data as soon as the view gets mounted
      */
     async componentDidMount() {
-        console.log(this.props);
         if (this.props.reducedFriends && this.props.reducedSuggestedFriends) {
             this.setState({
                 friends: this.props.reducedFriends,
@@ -87,7 +86,6 @@ class Social extends Component {
      */
     async loadAvatars() {
         const { friends, suggestedFriends } = this.state;
-        console.log(friends, suggestedFriends);
 
         let apiCalls = [];
 
@@ -99,8 +97,7 @@ class Social extends Component {
             } else {
                 apiCalls.push(null);
             }
-        })
-        console.log(apiCalls)
+        });
 
         await axios.all(
             apiCalls
@@ -111,7 +108,6 @@ class Social extends Component {
                     if (isFriend) {
                         friends[index].picture = getAvatar(friends[index].avatar);
                     } else {
-                        console.log(index - friends.length, friends.length, suggestedFriends.length)
                         suggestedFriends[index - friends.length].picture = getAvatar(suggestedFriends[index - friends.length].avatar);
                     }
                 } else {
@@ -136,34 +132,6 @@ class Social extends Component {
                 loadingAvatars: false
             });
         });
-
-        /*friends.map(async (friend) => {
-            if (friend.avatar === "custom") {
-                await getAsset("avatars_" + friend.userId)
-                    .then(async res => {
-                        friend.picture = "data:" + res.data.ContentType + ";base64," + await arrayBufferToBase64(res.data.Body.data);
-                    });
-            } else {
-                friend.picture = getAvatar(friend.avatar);
-            }
-        });
-
-        suggestedFriends.map(async (friend) => {
-            if (friend.avatar === "custom") {
-                await getAsset("avatars_" + friend.userId)
-                    .then(async res => {
-                        friend.picture = "data:" + res.data.ContentType + ";base64," + await arrayBufferToBase64(res.data.Body.data);
-                    });
-            } else {
-                friend.picture = getAvatar(friend.avatar);
-            }
-        });
-
-        this.setState({
-            friends,
-            suggestedFriends,
-            loadingAvatars: false
-        });*/
     }
 
     onSearchChange(event) {
@@ -174,7 +142,6 @@ class Social extends Component {
 
     render() {
         const { friends, suggestedFriends, loading, loadingAvatars, search } = this.state;
-        console.log(friends, suggestedFriends)
         let filteredFriends = friends;
         let filteredSuggestedFriends = suggestedFriends;
         if (search.length > 0) {

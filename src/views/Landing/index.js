@@ -1,6 +1,6 @@
 import React from 'react';
 import Checkbox from '@material-ui/core/Checkbox';
-import { Link, withRouter, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { Modal } from 'react-bootstrap';
 
 import './index.css';
@@ -30,7 +30,6 @@ const Landing = ({ isAuthenticated, login }) => {
     const [state, setState] = React.useState({
         checkedConditions: false
     });
-    console.log("landing")
     const [modalShow, setModalShow] = React.useState(false);
     const handleChange = name => event => {
         setState({ ...state, [name]: event.target.checked });
@@ -47,7 +46,7 @@ const Landing = ({ isAuthenticated, login }) => {
                 <button type="button" onClick={() => setModalShow(true)} style={rgpdLinkStyle}>Informations</button>
                 <div className="d-flex justify-content-center align-items-center" style={{ width: "110%" }}>
                     <Checkbox
-                        checked={state.checkedA}
+                        checked={state.checkedConditions}
                         onChange={handleChange("checkedConditions")}
                         color="default"
                         value="checkedConditions"

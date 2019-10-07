@@ -6,11 +6,7 @@ import { connect } from 'react-redux';
 import Spinner from '../components/spinner';
 import { addToLocalStorage } from '../utils/localStorage';
 
-const DOMAIN = "vertunemobilitedurable";
-const REGION = "eu-central-1";
-const RESPONSE_TYPE = "token";
-const CLIENT_ID = "74jqhkon51fhqcij088pashkgu";
-const REDIRECT_URI = "https://vertunemobilitedurable.fr/onboarding";
+import { DOMAIN, REDIRECT_URI, REGION, RESPONSE_TYPE, CLIENT_ID } from '../app.config';
 
 //  The id token is sent by Okta as a jwt token so decryption is needed
 function parseJwt(token) {
@@ -44,6 +40,7 @@ const OktaAuthComponent = withRouter(class OktaAuth extends Component {
 
   logout(){
     window.location.href = `https://${DOMAIN}.auth.${REGION}.amazoncognito.com/logout?response_type=${RESPONSE_TYPE}&client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}`;
+    // Removing user data from reducer and local storage
     const avatarAction = { type: "UPDATE_AVATAR", value: null };
     this.props.dispatch(avatarAction);
     const userAction = { type: "UPDATE_USER", value: {} };
@@ -57,9 +54,6 @@ const OktaAuthComponent = withRouter(class OktaAuth extends Component {
     let user = {};
     console.log(this.props);
     try {
-
-      console.log(hash)
-
       const idToken = hash.split("id_token=")[1].split("&")[0];
       const decodedJWT = parseJwt(idToken);
       console.log(decodedJWT);
@@ -69,8 +63,8 @@ const OktaAuthComponent = withRouter(class OktaAuth extends Component {
 
       this.setState({ user, isAuthenticated: true });
 
+      // Adding the logged in user into reducer and local storage
       addToLocalStorage("VMD_USER", JSON.stringify(user));
-
       const userAction = { type: "UPDATE_USER", value: {} };
       this.props.dispatch(userAction);
       return user;
@@ -82,6 +76,7 @@ const OktaAuthComponent = withRouter(class OktaAuth extends Component {
 
   render() {
     console.log(this.state);
+    // Little twitch to be sure the appropritate props are passed to the children ie the different views
     const childrenWithProps = React.Children.map(this.props.children, child =>
       React.cloneElement(child, { passedProps: this.state, login: this.login, getIdToken: this.getIdToken, logout: this.logout }));
     return this.state.loading ? <Spinner /> : <Switch>{childrenWithProps}</Switch>;
