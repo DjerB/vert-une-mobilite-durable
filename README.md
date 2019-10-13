@@ -2,7 +2,7 @@
 
 This project comes from GRDF commitment to sustainable mobility: through this React PWA that raises awareness about non sustainable ways of transport, its employees will be able to compete against each other by completing ludic challenges and improve their environmental impact on a dailay basis.
 
-<img src="images/screen_1.png" width="170" height="300" /><img src="images/screen_2.png" width="170" height="300" /><img src="images/screen_3.png" width="170" height="300" /><img src="images/screen_4.png" width="170" height="300" /><img src="images/screen_5.png" width="170" height="300" /><img src="images/screen_6.png" width="170" height="300" /><img src="images/screen_7.png" width="170" height="300" /><img src="images/screen_8.png" width="170" height="300" /><img src="images/screen_9.png" width="170" height="300" /><img src="images/screen_10.png" width="170" height="300" /><img src="images/screen_11.png" width="170" height="300" /><img src="images/screen_12.png" width="170" height="300" />
+<img src="images/screen_1.png" width="184" height="300" /><img src="images/screen_2.png" width="184" height="300" /><img src="images/screen_3.png" width="184" height="300" /><img src="images/screen_4.png" width="184" height="300" /><img src="images/screen_5.png" width="184" height="300" /><img src="images/screen_6.png" width="184" height="300" /><img src="images/screen_7.png" width="184" height="300" /><img src="images/screen_8.png" width="184" height="300" /><img src="images/screen_9.png" width="184" height="300" /><img src="images/screen_10.png" width="184" height="300" /><img src="images/screen_11.png" width="184" height="300" /><img src="images/screen_12.png" width="184" height="300" />
 
 ## Concept
 
