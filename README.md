@@ -1,3 +1,16 @@
+# Vert une mobilité durable
+
+This project comes from GRDF commitment to sustainable mobility: through this React PWA that raises awareness about non sustainable ways of transport, its employees will be able to compete against each other by completing ludic challenges and improve their environmental impact on a dailay basis.
+
+## Concept
+
+The App is designed as a social network where employees may add friends, follow their progress and earn points on succesfully completing one of the many challenges. The latter take very different forms: quiz, engagement challenges (such as not taking any planes for 1 or 3 months), ponctual ones... When logging in for the first time, the user is invited to upload a photo that will appear on her friends' newfeeds. Users contribute to their own regions success as they are publicly ranked so as to foster engagement and participation.
+
+## Architecture
+
+The front end part is composed of views, roughly one per tab, that use global generic components such as Userbars, forms, cards... Redux enables to store a global state (user, avatar, points) and to keep track of any changes. The authentication part relies on AWS Cognito API and the code uses the id token received to identify the user.
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
